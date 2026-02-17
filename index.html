@@ -374,29 +374,55 @@ body{
     width:100%;
   }
 }
-/* Force timeline stacked in landscape mode */
-@media screen and (orientation: landscape) {
-  .timeline {
-    flex-direction: column;
-    gap: 40px;
-  }
-  .timeline::before {
-    top: 0;
-    left: 12px;
-    width: 4px;
-    height: calc(100% - 20px);
-  }
-  .timeline-item {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-  .timeline-dot {
-    margin: 0 20px 0 0;
-  }
-  .timeline-content {
-    min-width: auto;
-    width: 100%;
-  }
+
+.resume-scroll {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.resume-scroll:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 35px rgba(218,165,32,0.7);
+}
+
+.scroll-paper {
+  position: relative;
+  background: linear-gradient(to bottom, #fdf6e3 0%, #f4e1b8 100%);
+  width: 200px;
+  height: 60px;
+  border-radius: 10px;
+  border: 3px solid #d4b373;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #5a3e1b;
+  overflow: visible;
+}
+
+.scroll-paper span {
+  z-index: 2;
+  position: relative;
+}
+
+.scroll-roll {
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 80px;
+  background: linear-gradient(to right, #d4b373, #f4e1b8);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.scroll-roll.left {
+  left: -20px;
+}
+
+.scroll-roll.right {
+  right: -20px;
 }
 </style>
 </head>
@@ -594,6 +620,16 @@ body{
     <button class="nav-btn" onclick="goBack()">Back</button>
     <button class="nav-btn" onclick="restart()">Back to Start</button>
   </div>
+  <!-- Scroll Resume -->
+<div style="margin-top:40px; text-align:center;">
+  <div class="resume-scroll" onclick="downloadResume()">
+    <div class="scroll-paper">
+      <span>Resume</span>
+      <div class="scroll-roll left"></div>
+      <div class="scroll-roll right"></div>
+    </div>
+  </div>
+</div>
 </div>
 
 <script>
@@ -685,6 +721,13 @@ document.querySelectorAll('.timeline-item').forEach(item=>{
     item.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
   });
 });
+
+function downloadResume() {
+  const link = document.createElement('a');
+  link.href = 'Vaasinathan_Resume.pdf'; // Make sure the PDF is in the same folder
+  link.download = 'Vaasinathan_Resume.pdf';
+  link.click();
+}
 </script>
 
 </body>
