@@ -374,7 +374,30 @@ body{
     width:100%;
   }
 }
-
+/* Force timeline stacked in landscape mode */
+@media screen and (orientation: landscape) {
+  .timeline {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .timeline::before {
+    top: 0;
+    left: 12px;
+    width: 4px;
+    height: calc(100% - 20px);
+  }
+  .timeline-item {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .timeline-dot {
+    margin: 0 20px 0 0;
+  }
+  .timeline-content {
+    min-width: auto;
+    width: 100%;
+  }
+}
 .resume-scroll {
   display: inline-block;
   cursor: pointer;
